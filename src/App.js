@@ -1,7 +1,14 @@
 import './App.css';
 import {useState} from "react";
+import 'bootstrap/dist/css/bootstrap.min.css';
+import {Dialog} from "@mui/material";
 
 function App() {
+    const [currentQuestion, setCurrentQuestion] = useState(0)
+    const [score, setScore] = useState(0)
+    const [showScore, setShowScore] = useState(false)
+    const [open, setOpen] = useState(false)
+
     const questions = [
         {
             questionText: 'Mis on Eesti pindala?',
@@ -23,11 +30,8 @@ function App() {
         }
     ];
 
-    const [currentQuestion, setCurrentQuestion] = useState(0)
-    const [score, setScore] = useState(0)
-    const [showScore, setShowScore] = useState(false)
-
     const handleAnswerButtonClick = (isCorrect) => {
+        setOpen(true)
         if (isCorrect === true) {
             setScore(score + 1)
         }
@@ -39,7 +43,12 @@ function App() {
         }
     }
 
-    return (<div className="app">
+    const handleClose = () => {
+        setOpen(false);
+    };
+
+
+    return (<div className="container-fluid">
             {showScore ? (<div className="score-section">Sa
                 skoorisid {score} punkti {questions.length}-st </div>) : (
                 <>
